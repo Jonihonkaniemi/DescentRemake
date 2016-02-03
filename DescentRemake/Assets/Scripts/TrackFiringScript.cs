@@ -6,14 +6,13 @@ public class TrackFiringScript : MonoBehaviour {
     private PlayerShoot playerShoot;
     public int bulletCount = 0;
     public int bulletCountOld;
+    public int shots = 10;
 
-	// Use this for initialization
 	void Start () {
         playerShoot = this.GetComponent<PlayerShoot>();
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
         if(bulletCount != bulletCountOld)
         {
