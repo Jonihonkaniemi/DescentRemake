@@ -19,6 +19,7 @@ public class PlayerShoot : MonoBehaviour {
     private float nextbullet;
     private float nextmissile;
     private float nextitem;
+    public int bulletCounter = 0;
 
     //Firemode can be "standard" , "triple" & "auto"
     [SerializeField]
@@ -51,6 +52,7 @@ public class PlayerShoot : MonoBehaviour {
             {
                 weapons.InitiateStandardShoot(FireRateForPrimaryFire, firemode);
                 nextbullet = Time.time + FireRateForPrimaryFire;
+                bulletCounter++;
 
             }
         }else if (Input.GetButtonUp("Fire1") && firemode == "auto")

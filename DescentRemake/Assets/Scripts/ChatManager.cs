@@ -15,7 +15,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     private const string AppVersion = "1.0";
 
     private ChatClient _chat;
-    private string username = "";
+    public string username = "";
     private string _chatText = "";
     //private string _privateText = "";
     private string _input = "";
@@ -50,7 +50,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
 
         _chat = new ChatClient(this);
 
-
+       
 
 
 
@@ -80,26 +80,27 @@ public class ChatManager : MonoBehaviour, IChatClientListener
 
             if (Input.GetKeyDown(KeyCode.Return))
             {
+
                 if (ChatInput.enabled)
                 {
 
                     if (!string.IsNullOrEmpty(_input) && _input.Length > 0)
                     {
                         SendMessage(_input);
+
                     }
 
-                    ChatInput.text = "";
-                    ChatInput.enabled = false;
-                    ChatInput.GetComponent<CanvasGroup>().alpha = 0;
+                ChatInput.text = "";
+                ChatInput.enabled = false;
+                ChatInput.GetComponent<CanvasGroup>().alpha = 0;
 
-                }
-                else
-                {
-                    ChatInput.GetComponent<CanvasGroup>().alpha = 1;
-                    ChatInput.enabled = true;
-                }
             }
-
+            else
+            {
+                ChatInput.GetComponent<CanvasGroup>().alpha = 1;
+                ChatInput.enabled = true;
+            }
+        }
 
         }
 
@@ -132,6 +133,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         {
             Debug.Log("Error connecting server");
             _chat.DebugOut = ExitGames.Client.Photon.DebugLevel.ALL;
+
         }
         else
             _connected = true;

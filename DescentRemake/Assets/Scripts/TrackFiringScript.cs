@@ -7,23 +7,32 @@ public class TrackFiringScript : MonoBehaviour {
     private StatController statController;
     public int bulletCountOld = 0;
     public int bulletCount = 0;
+    private bool playerFound = false;
 
-	void Start () {
-        playerShoot = GameObject.Find("Player").GetComponent<PlayerShoot>();
+
+	void Start ()
+    {
+	}
+
+    public void FindPlayer()
+    {
+        playerShoot = GameObject.Find("Player(Clone)").GetComponent<PlayerShoot>();
         statController = GetComponent<StatController>();
+        playerFound = true;
+
         
-	
-	}
-	
-	void Update () {
-        bulletCount = playerShoot.bulletCounter;
-        print("Shots fired: " + bulletCount);
-        if (bulletCount != bulletCountOld)
+    }
+
+    void Update()
+    {
+        if (playerFound == true)
         {
-            statController.SendData();
-            bulletCountOld = playerShoot.bulletCounter;
-            print("Shots fired: " + bulletCountOld);
+            bulletCount = playerShoot.bulletCounter;
+            if (bulletCount != bulletCountOld)
+            {
+                statController.SendAmmo();
+                bulletCountOld = playerShoot.bulletCounter;
+            }
         }
-	
-	}
+    }
 }

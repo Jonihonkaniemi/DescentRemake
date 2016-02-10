@@ -6,15 +6,17 @@ public class StatController : MonoBehaviour
 {
    
     public string addScoreURL = "http://oamkpo2016.esy.es/shots"; //be sure to add a ? to your url
+    private GetUserId getuserId;
  
     void Start()
     {
-        //StartCoroutine(PostScores(8, 1337));
+        getuserId = GameObject.Find("StatTracking").GetComponent<GetUserId>();
+
     } 
 
-    public void SendData()
+    public void SendAmmo()
     {
-        StartCoroutine(PostScores(8, 1));
+        StartCoroutine(PostScores(getuserId.id, 1));
     }
 
     IEnumerator PostScores(int ID, int shots)

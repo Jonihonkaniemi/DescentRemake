@@ -6,32 +6,39 @@ using LitJson;
 public class GetUserId : MonoBehaviour {
 
     public string url = "http://oamkpo2016.esy.es/login?";
+    private ChatManager chatManager;
+    private string uName;
+    public int id;
+    private bool userNameFound = true;
 
-	// Use this for initialization
 	void Start () {
-        StartCoroutine(GetID("honkkis"));
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
-    IEnumerator GetID(string nname)
+    }
+
+    public void FindPlayer()
     {
-        // string Get_url = url + "nname=" + WWW.EscapeURL(nname);
-        print(nname);
-        string Get_url = new System.Net.WebClient().DownloadString(url + "nname=" + WWW.EscapeURL(nname));
-        // Post the URL to the site and create a download object to get the result.
-        print(Get_url);
-        JsonData data = JsonMapper.ToObject(Get_url);
-        //Debug.Log(data["Reply"][0]["ID"]);
-        int id = int.Parse((string)data["Reply"][0]["ID"]);
-        print("Pelaajan id on: " + id);
+        chatManager = GameObject.Find("Player(Clone)").GetComponent<ChatManager>();
+        StartCoroutine(GetUserName());
+        StartCoroutine(GetID());
+    }
 
+    void Update() {
+	}
+
+    IEnumerator GetID()
+    {
+        yield return new WaitWhile(() => uName != "");
+        string Get_url = new System.Net.WebClient().DownloadString(url + "nname=" + WWW.EscapeURL(uName));
+        JsonData data = JsonMapper.ToObject(Get_url);
+        id = int.Parse((string)data["Reply"][0]["ID"]);
+       
 
 
 
         yield return Get_url; // Wait until the download is done
+    }
+
+    IEnumerator GetUserName() {
+        yield return new WaitUntil(() => (uName = chatManager.username) != "");
     }
 }
