@@ -9,8 +9,13 @@ public class StatController : MonoBehaviour
  
     void Start()
     {
-        StartCoroutine(PostScores(8, 1337));
+        //StartCoroutine(PostScores(8, 1337));
     } 
+
+    public void SendData()
+    {
+        StartCoroutine(PostScores(8, 1));
+    }
 
     IEnumerator PostScores(int ID, int shots)
     {

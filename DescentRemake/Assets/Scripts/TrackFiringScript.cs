@@ -4,20 +4,25 @@ using System.Collections;
 public class TrackFiringScript : MonoBehaviour {
 
     private PlayerShoot playerShoot;
+    private StatController statController;
+    public int bulletCountOld = 0;
     public int bulletCount = 0;
-    public int bulletCountOld;
-    public int shots = 10;
 
 	void Start () {
-        playerShoot = this.GetComponent<PlayerShoot>();
+        playerShoot = GameObject.Find("Player").GetComponent<PlayerShoot>();
+        statController = GetComponent<StatController>();
+        
 	
 	}
 	
 	void Update () {
-        if(bulletCount != bulletCountOld)
+        bulletCount = playerShoot.bulletCounter;
+        print("Shots fired: " + bulletCount);
+        if (bulletCount != bulletCountOld)
         {
-            bulletCountOld = bulletCount;
-            print("Shots fired: " + bulletCount);
+            statController.SendData();
+            bulletCountOld = playerShoot.bulletCounter;
+            print("Shots fired: " + bulletCountOld);
         }
 	
 	}

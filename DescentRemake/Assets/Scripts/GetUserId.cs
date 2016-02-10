@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using LitJson;
+
 
 public class GetUserId : MonoBehaviour {
 
@@ -17,18 +19,19 @@ public class GetUserId : MonoBehaviour {
 
     IEnumerator GetID(string nname)
     {
-        string Get_url = url + "nname=" + WWW.EscapeURL(nname);
-        print(Get_url);
-
+        // string Get_url = url + "nname=" + WWW.EscapeURL(nname);
+        print(nname);
+        string Get_url = new System.Net.WebClient().DownloadString(url + "nname=" + WWW.EscapeURL(nname));
         // Post the URL to the site and create a download object to get the result.
-        WWW hs_get = new WWW(Get_url);
+        print(Get_url);
+        JsonData data = JsonMapper.ToObject(Get_url);
+        //Debug.Log(data["Reply"][0]["ID"]);
+        int id = int.Parse((string)data["Reply"][0]["ID"]);
+        print("Pelaajan id on: " + id);
 
-        print("hs get: " + hs_get);
-        yield return hs_get; // Wait until the download is done
 
-        if (hs_get.error != null)
-        {
-            print("There was an error getting user id: " + hs_get.error);
-        }
+
+
+        yield return Get_url; // Wait until the download is done
     }
 }

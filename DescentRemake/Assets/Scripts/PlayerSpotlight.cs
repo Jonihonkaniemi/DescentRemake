@@ -34,7 +34,7 @@ public class PlayerSpotlight : MonoBehaviour {
         {
             GetComponent<Light>().enabled = false;
             battery += Time.deltaTime;
-            Debug.Log("Battery life: " + battery);
+          //  Debug.Log("Battery life: " + battery);
         }
 
         if (battery <= 0)
